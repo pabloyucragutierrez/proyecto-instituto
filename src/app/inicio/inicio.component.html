@@ -1,0 +1,40 @@
+<app-header></app-header>
+<div class="banner_inicio">
+  <div class="slider">
+    <div class="slides">
+      <div
+        *ngFor="let image of images; let i = index"
+        [ngClass]="{ slide: true, active: i === currentIndex }"
+      >
+        <img [src]="image" alt="Slide image" />
+      </div>
+    </div>
+    <div class="indicators">
+      <div
+        *ngFor="let image of images; let i = index"
+        (click)="goToSlide(i)"
+        [ngClass]="{ indicator: true, active: i === currentIndex }"
+      ></div>
+    </div>
+    <div class="arrows">
+      <span (click)="prevSlide()" class="arrow left-arrow">&#10094;</span>
+      <span (click)="nextSlide()" class="arrow right-arrow">&#10095;</span>
+    </div>
+  </div>
+</div>
+<section class="section section__productos">
+  <div class="card-container">
+    <div class="card" *ngFor="let product of products">
+      <img class="card-image" [src]="product.imageUrl" alt="Product Image" />
+      <div class="card-content">
+        <h2 class="card-title">{{ product.title }}</h2>
+        <p class="card-price">{{ product.price | currency }}</p>
+        <button class="card-button" (click)="viewProduct(product)">
+          Ver Producto
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

@@ -1,0 +1,28 @@
+<app-header></app-header>
+<section class="section product-detail-section">
+  <div class="product-detail-container">
+    <div class="product-image">
+      <img src="assets/aro-luz.png" alt="Imagen del producto">
+    </div>
+    <div class="product-info">
+      <h2 class="product-title">Nombre del Producto</h2>
+      <div class="product-details-section">
+        <h2 class="details-header">Detalles:</h2>
+        <ul class="product-details">
+          <li>Detalle 1</li>
+          <li>Detalle 2</li>
+          <li>Detalle 3</li>
+          <li>Detalle 4</li>
+        </ul>
+      </div>
+      <p class="product-price">$49.99</p>
+      <div class="quantity-selector">
+        <button class="quantity-btn" (click)="disminuir()">-</button>
+        <input type="text" id="quantity" [value]="quantity" min="1" readonly>
+        <button class="quantity-btn" (click)="aumentar()">+</button>
+      </div>
+      <button class="add-to-cart-btn">Agregar al Carrito</button>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>
