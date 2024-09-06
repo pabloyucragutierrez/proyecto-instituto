@@ -14,10 +14,6 @@ const routes: Routes = [
     component: InicioComponent
   },
   {
-    path:"",
-    component: InicioComponent
-  },
-  {
     path:"productos",
     component: ProyectosComponent
   },
