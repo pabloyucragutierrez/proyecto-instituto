@@ -14,6 +14,7 @@
               name="email"
               required
               [(ngModel)]="email"
+              #emailInput="ngModel"
             />
           </div>
           <div class="form-group">
@@ -25,6 +26,7 @@
               placeholder="Contraseña"
               required
               [(ngModel)]="password"
+              #passwordInput="ngModel"
             />
           </div>
           <button type="submit">Iniciar sesión</button>
@@ -37,4 +39,19 @@
     </div>
   </div>
 </section>
+
+<div *ngIf="showEmptyFormError" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="showEmptyFormError = false">&times;</span>
+    <p>Completa todos los campos.</p>
+  </div>
+</div>
+
+<div *ngIf="showApiError" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="showApiError = false">&times;</span>
+    <p>Ha ocurrido un error.</p>
+  </div>
+</div>
+
 <app-footer></app-footer>

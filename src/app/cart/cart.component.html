@@ -1,46 +1,40 @@
 <app-header></app-header>
 <section class="section section__cart">
-    <div class="cart-container">
-        <h2 class="cart-title">Carrito de compras</h2>
-        <div class="cart-item-list">
-            <div class="cart-item">
-                <img src="assets/aro-luz.png" alt="Producto" class="cart-item-image">
-                <div class="cart-item-details">
-                    <h3 class="cart-item-title">Producto 1</h3>
-                    <p class="cart-item-description">Descripción detallada del producto. Incluye información sobre características, beneficios, y otros detalles relevantes.</p>
-                    <div class="cart-item-meta">
-                        <p class="cart-item-price">$29.99</p>
-                        <button class="cart-item-remove"><i class='bx bxs-trash-alt'></i></button>
-                    </div>
-                </div>
+  <div class="cart-container">
+    <h2 class="cart-title">Carrito de compras</h2>
+    <div class="cart-item-list">
+      <div class="cart-item">
+        <img src="assets/aro-luz.png" alt="Producto" class="cart-item-image" />
+        <div class="cart-item-details">
+          <h3 class="cart-item-title">Producto 1</h3>
+          <p class="cart-item-description">
+            Descripción detallada del producto. Incluye información sobre
+            características, beneficios, y otros detalles relevantes.
+          </p>
+          <div class="cart-item-meta">
+            <p class="cart-item-price">$29.99</p>
+            <button class="cart-item-remove">
+              <i class="bx bxs-trash-alt"></i>
+            </button>
+            <div class="quantity-selector">
+              <button class="quantity-btn" (click)="disminuir()">-</button>
+              <input
+                type="text"
+                id="quantity"
+                [value]="quantity"
+                min="1"
+                readonly
+              />
+              <button class="quantity-btn" (click)="aumentar()">+</button>
             </div>
-            <div class="cart-item">
-                <img src="assets/aro-luz.png" alt="Producto" class="cart-item-image">
-                <div class="cart-item-details">
-                    <h3 class="cart-item-title">Producto 1</h3>
-                    <p class="cart-item-description">Descripción detallada del producto. Incluye información sobre características, beneficios, y otros detalles relevantes.</p>
-                    <div class="cart-item-meta">
-                        <p class="cart-item-price">$29.99</p>
-                        <button class="cart-item-remove"><i class='bx bxs-trash-alt'></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="cart-item">
-                <img src="assets/aro-luz.png" alt="Producto" class="cart-item-image">
-                <div class="cart-item-details">
-                    <h3 class="cart-item-title">Producto 1</h3>
-                    <p class="cart-item-description">Descripción detallada del producto. Incluye información sobre características, beneficios, y otros detalles relevantes.</p>
-                    <div class="cart-item-meta">
-                        <p class="cart-item-price">$29.99</p>
-                        <button class="cart-item-remove"><i class='bx bxs-trash-alt'></i></button>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="cart-summary">
-            <p class="summary-total">Total: $29.99</p>
-            <button class="checkout-button">Proceder al Pago</button>
-        </div>
+      </div>
     </div>
+    <div class="cart-summary">
+      <p class="summary-total">Total: $29.99</p>
+      <button class="checkout-button">Proceder al Pago</button>
+    </div>
+  </div>
 </section>
 <app-footer></app-footer>

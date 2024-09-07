@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css'], 
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  name: string | null = '';
 
+  ngOnInit(): void {
+    this.name = localStorage.getItem('nombre');
+  }
+
+  deleteToken(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('nombre');
+
+    window.location.reload();
+  }
 }

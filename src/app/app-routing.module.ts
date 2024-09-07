@@ -11,45 +11,42 @@ import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   {
-    path:"inicio",
-    component: InicioComponent
+    path: 'inicio',
+    component: InicioComponent,
   },
   {
-    path:"",
-    component: InicioComponent
+    path: '',
+    component: InicioComponent,
   },
   {
-    path:"productos",
-    component: ProyectosComponent
+    path: 'productos',
+    component: ProyectosComponent,
   },
   {
-    path:"nosotros",
-    component: NosotrosComponent
+    path: 'nosotros',
+    component: NosotrosComponent,
   },
   {
-    path:"contacto",
-    component: ContactoComponent
+    path: 'contacto',
+    component: ContactoComponent,
   },
   {
-    path:"login",
-    component: LoginComponent
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path:"registrate",
-    component: RegisterComponent
+    path: 'registrate',
+    component: RegisterComponent,
   },
+  { path: 'detalle-del-producto/:id', component: DetalleDelProductoComponent },
   {
-    path:"detalle-del-producto",
-    component: DetalleDelProductoComponent
+    path: 'cart',
+    component: CartComponent,
   },
-  {
-    path:"cart",
-    component: CartComponent
-  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

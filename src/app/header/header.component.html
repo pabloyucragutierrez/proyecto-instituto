@@ -13,8 +13,14 @@
   <div class="icons">
     <a routerLink="/login">
       <i class="bx bx-user-circle"></i>
-      Cuenta
+      {{ name ? name : 'Cuenta' }}
     </a>
+    
+    <a *ngIf="name" routerLink="#" (click)="deleteToken()">
+      <i class='bx bx-log-out'></i>
+      Salir
+    </a>
+    
     <a routerLink="/cart">
       <i class="bx bx-cart"></i>
       Carrito

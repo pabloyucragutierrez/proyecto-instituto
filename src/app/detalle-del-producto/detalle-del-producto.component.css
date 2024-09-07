@@ -56,9 +56,13 @@
 
 .details-header {
   font-size: 1.1rem;
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
   color: #333;
   font-weight: bold;
+}
+.description__p{
+  font-size: 1rem;
+  margin-bottom: 1rem;
 }
 
 .product-details {
@@ -119,17 +123,14 @@ input[type="text"] {
 }
 
 .add-to-cart-btn {
-  width: 100%;
-  padding: 0.75rem;
+  width: fit-content;
+  padding: 0.75rem 2rem;
   background-color: #f82727;
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.add-to-cart-btn:active {
-  transform: translateY(0);
-}
+

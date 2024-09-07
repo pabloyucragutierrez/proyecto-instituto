@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,6 +7,14 @@ import { Component } from '@angular/core';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
+
+  products: any[] = [];
+  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products'; 
+
+  constructor(private http: HttpClient) {} 
+
+  // slider banner
+
   images: string[] = [
     'assets/banner1.png',
     'assets/banner2.png',
@@ -35,25 +44,31 @@ export class InicioComponent {
     slides.style.transform = `translateX(-${this.currentIndex * 100}%)`;
   }
 
+// pruductos get
 
-  products = [
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    // Agrega más productos aquí
-  ];
-
-  viewProduct(product: any): void {
-    alert(`Ver producto: ${product.title}`); // Aquí puedes redirigir o mostrar más detalles del producto
+  ngOnInit() {
+    this.http.get<any[]>(this.apiUrl).subscribe({
+      next: (data) => {
+        this.products = data;
+        this.products.forEach(product => product.quantity = 1);
+        console.log(data);
+      },
+      error: (err) => {
+        console.error('Error al obtener los productos:', err); 
+        alert(`error en la api`)
+      }
+    });
   }
   
+  
+  aumentar(product: any) {
+    product.quantity++;
+  }
+
+  disminuir(product: any) {
+    if (product.quantity > 1) {
+      product.quantity--;
+    }
+  }
+
 }

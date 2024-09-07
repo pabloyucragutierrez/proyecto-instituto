@@ -5,31 +5,44 @@ import { Router } from '@angular/router'; // Para redirigir tras el login
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  email: string = ''; 
-  password: string = ''; 
-  private loginUrl = 'https://ansurbackendnestjs-production.up.railway.app/auth/login'; 
+  email: string = '';
+  password: string = '';
+  private loginUrl =
+    'https://ansurbackendnestjs-production.up.railway.app/auth/login';
+
+  // Flags para mostrar los modales
+  showEmptyFormError: boolean = false;
+  showApiError: boolean = false;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
+    // Verifica si el formulario está vacío
+    if (!this.email || !this.password) {
+      this.showEmptyFormError = true;
+      return;
+    }
+
     const loginData = {
       email: this.email,
-      password: this.password
+      password: this.password,
     };
 
     this.http.post(this.loginUrl, loginData).subscribe({
       next: (response: any) => {
-        console.log('login exito', response);
-        alert("login")
-        // localStorage.setItem('token', response.token);
         this.router.navigate(['/inicio']);
+        console.log('login exito', response);
+        localStorage.setItem('nombre', response.user.name);
+        localStorage.setItem('apellidos', response.user.lastname);
+        localStorage.setItem('token', response.token);
       },
       error: (error) => {
         console.error('Error', error);
-        alert("error")
-      }
+        this.showApiError = true;
+      },
     });
   }
 }
