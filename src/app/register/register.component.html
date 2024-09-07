@@ -6,12 +6,32 @@
         <h2>Crear cuenta</h2>
         <form>
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="nombres">Nombres</label>
             <input
-              type="email"
-              id="email"
-              placeholder="Email"
-              name="email"
+              type="nombres"
+              id="nombres"
+              placeholder="Nombres"
+              name="nombres"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="spellidos">Apellidos</label>
+            <input
+              type="spellidos"
+              id="spellidos"
+              placeholder="Apellidos"
+              name="spellidos"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input
+              type="telefono"
+              id="telefono"
+              placeholder="Teléfono"
+              name="telefono"
               required
             />
           </div>
@@ -26,10 +46,10 @@
               required
             />
           </div>
-          <div class="register__content">
-            <p>Ya tienes una cuenta?</p> <a routerLink="">Iniciar sesión</a>
-          </div>
           <button type="submit">Crear cuenta</button>
+          <div class="register__content">
+            <p>Ya tienes una cuenta?</p> <a routerLink="/login">Iniciar sesión</a>
+          </div>
         </form>
       </div>
     </div>

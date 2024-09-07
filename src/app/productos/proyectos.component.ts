@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http'; // Importa HttpClient
 })
 export class ProyectosComponent implements OnInit {
   products: any[] = [];
-  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products'; // URL de la API
+  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products'; 
 
   constructor(private http: HttpClient) {} 
 
@@ -20,12 +20,12 @@ export class ProyectosComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al obtener los productos:', err); 
+        alert(`error en la api`)
       }
     });
   }
 
-  // Método para ver el producto
   viewProduct(product: any): void {
-    alert(`Ver producto: ${product.title}`);
+    alert(`Ver producto: ${product.name}`);
   }
 }

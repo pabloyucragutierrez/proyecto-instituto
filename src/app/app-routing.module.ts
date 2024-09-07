@@ -7,6 +7,7 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { LoginComponent } from './login/login.component';
 import { DetalleDelProductoComponent } from './detalle-del-producto/detalle-del-producto.component';
 import { RegisterComponent } from './register/register.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path:"detalle-del-producto",
     component: DetalleDelProductoComponent
+  },
+  {
+    path:"cart",
+    component: CartComponent
   }
 ];
 
