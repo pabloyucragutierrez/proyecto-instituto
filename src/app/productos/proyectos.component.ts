@@ -1,30 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Importa HttpClient
 
 @Component({
   selector: 'app-proyectos',
   templateUrl: './proyectos.component.html',
-  styleUrl: './proyectos.component.css'
+  styleUrls: ['./proyectos.component.css']
 })
-export class ProyectosComponent {
+export class ProyectosComponent implements OnInit {
+  products: any[] = [];
+  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products'; // URL de la API
 
-  products = [
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje1.jpg', title: 'Producto 1', price: 29.99 },
-    { imageUrl: 'assets/cintasembalaje2.jpg', title: 'Producto 2', price: 29.99 },
-    // Agrega más productos aquí
-  ];
+  constructor(private http: HttpClient) {} 
 
-  viewProduct(product: any): void {
-    alert(`Ver producto: ${product.title}`); // Aquí puedes redirigir o mostrar más detalles del producto
+  ngOnInit() {
+    this.http.get<any[]>(this.apiUrl).subscribe({
+      next: (data) => {
+        this.products = data;
+        console.log(data);
+      },
+      error: (err) => {
+        console.error('Error al obtener los productos:', err); 
+      }
+    });
   }
-  
+
+  // Método para ver el producto
+  viewProduct(product: any): void {
+    alert(`Ver producto: ${product.title}`);
+  }
 }

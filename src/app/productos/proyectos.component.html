@@ -2,14 +2,12 @@
 <section class="section section__productos">
     <div class="card-container">
       <div class="card" *ngFor="let product of products">
-        <img class="card-image" [src]="product.imageUrl" alt="Product Image" />
+        <img class="card-image" [src]="product.image1" alt="Product Image" />
         <div class="card-content">
-          <h2 class="card-title">{{ product.title }}</h2>
-          <p class="card-price">{{ product.price | currency }}</p>
-          <!-- <button class="card-button" (click)="viewProduct(product)">
-            Ver Producto
-          </button> -->
+          <h2 class="card-title">{{ product.name}}</h2>
+          <p class="card-price">{{ product.price}}</p>
           <a class="card-button" routerLink="/detalle-del-producto">Ver producto</a>
+          <a class="card-button" routerLink="/cart">Agregar al carrito</a>
         </div>
       </div>
     </div>

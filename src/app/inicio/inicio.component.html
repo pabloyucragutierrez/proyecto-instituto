@@ -29,9 +29,12 @@
       <div class="card-content">
         <h2 class="card-title">{{ product.title }}</h2>
         <p class="card-price">{{ product.price | currency }}</p>
-        <button class="card-button" (click)="viewProduct(product)">
-          Ver Producto
-        </button>
+        <div class="btns__content">
+          <a class="card-button" routerLink="/detalle-del-producto"
+            >Ver producto</a
+          >
+          <a class="card-button" routerLink="/cart">Agregar al carrito</a>
+        </div>
       </div>
     </div>
   </div>
