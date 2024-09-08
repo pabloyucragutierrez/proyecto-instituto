@@ -8,6 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { DetalleDelProductoComponent } from './detalle-del-producto/detalle-del-producto.component';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
+import { DatosDelUsuarioComponent } from './datos-del-usuario/datos-del-usuario.component';
+import { ComprobanteComponent } from './comprobante/comprobante.component';
+import { TipoDeEntregaComponent } from './tipo-de-entrega/tipo-de-entrega.component';
+import { PagarComponent } from './pagar/pagar.component';
 
 const routes: Routes = [
   {
@@ -42,6 +46,22 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
+  },
+  {
+    path: 'datos-del-usuario',
+    component: DatosDelUsuarioComponent,
+  },
+  {
+    path: 'comprobante',
+    component: ComprobanteComponent,
+  },
+  {
+    path: 'tipo-de-entrega',
+    component: TipoDeEntregaComponent,
+  },
+  {
+    path: 'pagar',
+    component: PagarComponent,
   },
 ];
 

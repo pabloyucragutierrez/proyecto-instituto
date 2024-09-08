@@ -1,0 +1,167 @@
+<app-header></app-header>
+<section class="section section__payment">
+  <div class="container">
+    <div class="stepper">
+      <div class="step active">
+        <div class="step-icon">
+          <i class="bx bx-user"></i>
+        </div>
+        <p>Datos del Usuario</p>
+      </div>
+      <div class="step active">
+        <div class="step-icon">
+          <i class="bx bx-receipt"></i>
+        </div>
+        <p>Comprobante</p>
+      </div>
+      <div class="step active">
+        <div class="step-icon">
+          <i class="bx bx-package"></i>
+        </div>
+        <p>Tipo de Entrega</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">
+          <i class="bx bx-credit-card"></i>
+        </div>
+        <p>Pago</p>
+      </div>
+      <div class="progress-bar">
+        <div class="progress" style="width: 65%"></div>
+      </div>
+    </div>
+
+    <div class="payment-layout">
+      <div class="form-container">
+        <div class="cards__entrega">
+          <article
+            class="art__domicilio"
+            [ngClass]="{ active: isActive('delivery') }"
+            (click)="setActiveSection('delivery')"
+          >
+            <i class="bx bx-home"></i>
+            <p>Entrega a domicilio</p>
+          </article>
+          <article
+            class="art__tienda"
+            [ngClass]="{ active: isActive('pickup') }"
+            (click)="setActiveSection('pickup')"
+          >
+            <i class="bx bx-store"></i>
+            <p>Retiro en tienda</p>
+          </article>
+        </div>
+
+        <form class="form__entrega" *ngIf="isActive('delivery')">
+          <div class="form-row">
+            <div class="form-group half-width">
+              <label for="direccion">Dirección</label>
+              <input
+                type="text"
+                id="direccion"
+                placeholder="Dirección"
+                required
+              />
+            </div>
+            <div class="form-group half-width">
+              <label for="referencia">Referencia</label>
+              <input
+                type="text"
+                id="referencia"
+                placeholder="Referencia"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="distrito">Distrito</label>
+            <select id="distrito">
+              <option value="">Distrito 1</option>
+              <option value="">Distrito 2</option>
+              <option value="">Distrito 3</option>
+              <option value="">Distrito 4</option>
+            </select>
+          </div>
+          <br />
+          <div>
+            <h3>¿Quién lo recibirá?</h3>
+            <div class="form-row">
+              <div class="form-group half-width">
+                <label for="nombre-receptor">Nombres y apellidos</label>
+                <input
+                  type="text"
+                  id="nombre-receptor"
+                  placeholder="Nombres y apellidos"
+                  required
+                />
+              </div>
+              <div class="form-group half-width">
+                <label for="telefono">Teléfono</label>
+                <input
+                  type="text"
+                  id="telefono"
+                  placeholder="Teléfono"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div class="btn__form">
+            <a routerLink="/comprobante" class="btn btn-comprar">Regresar</a>
+            <a routerLink="/pagar" class="btn btn-comprar">Continuar</a>
+          </div>
+        </form>
+
+        <div class="recojo__tienda" *ngIf="isActive('pickup')">
+          <h2>Información de la tienda</h2>
+          <p><b>Dirección:</b> Prolg. Huánuco 1981 - La Victoria</p>
+          <p><b>Referencia:</b> Prolg. Huánuco 1981 - La Victoria</p>
+          <br />
+          <h2>Información importante</h2>
+          <p>
+            Cuando el pedido esté listo para recogerse, te avisaremos a través
+            de una llamada
+          </p>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62065.4527046694!2d-71.93924905!3d-13.5300193!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x916e7ed44fa24cf9%3A0x153cabb2c1d434ac!2sEco%20Park%20Cusco!5e0!3m2!1ses!2spe!4v1725809231568!5m2!1ses!2spe"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="btn__form">
+            <a routerLink="/comprobante" class="btn btn-comprar">Regresar</a>
+            <a routerLink="/pagar" class="btn btn-comprar">Continuar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-container">
+        <h3>Resumen de tu Pedido</h3>
+        <div class="product-card">
+          <div class="product-details">
+            <p class="product-name"><strong>Foco led Philips</strong></p>
+            <p class="product-price">S/ 12.00</p>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-details">
+            <p class="product-name"><strong>Ganchos de pared</strong></p>
+            <p class="product-price">S/ 3.00</p>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-details">
+            <p class="product-name"><strong>USB de 32 GB Kingston</strong></p>
+            <p class="product-price">S/ 12.00</p>
+          </div>
+        </div>
+        <div class="total-summary">
+          <p class="total-label"><strong>Total:</strong></p>
+          <p class="total-amount"><strong>S/ 27.00</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

@@ -15,6 +15,10 @@ import { DetalleDelProductoComponent } from './detalle-del-producto/detalle-del-
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CartComponent } from './cart/cart.component';
+import { DatosDelUsuarioComponent } from './datos-del-usuario/datos-del-usuario.component';
+import { ComprobanteComponent } from './comprobante/comprobante.component';
+import { TipoDeEntregaComponent } from './tipo-de-entrega/tipo-de-entrega.component';
+import { PagarComponent } from './pagar/pagar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { CartComponent } from './cart/cart.component';
     LoginComponent,
     RegisterComponent,
     DetalleDelProductoComponent,
-    CartComponent
+    CartComponent,
+    DatosDelUsuarioComponent,
+    ComprobanteComponent,
+    TipoDeEntregaComponent,
+    PagarComponent
   ],
   imports: [
     BrowserModule,

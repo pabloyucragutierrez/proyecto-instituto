@@ -96,6 +96,9 @@
 .cart-summary {
     text-align: right;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .summary-total {
@@ -108,9 +111,12 @@
     background-color: #f82727;
     color: white;
     border: none;
+    text-decoration: none;
     padding: 12px 20px;
     font-size: 1.1em;
+    display: block;
     border-radius: 5px;
+    width: fit-content;
     cursor: pointer;
 }
 

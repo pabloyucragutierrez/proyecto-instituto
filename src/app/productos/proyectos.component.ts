@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Importa HttpClient
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-proyectos',
@@ -9,6 +10,9 @@ import { HttpClient } from '@angular/common/http'; // Importa HttpClient
 export class ProyectosComponent implements OnInit {
   products: any[] = [];
   categorias: any[] = [];
+  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products';
+  private apiCategorias = 'https://ansurbackendnestjs-production.up.railway.app/categories';
+  private searchApiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products/search/';
 
   iconosPorCategoria: { [key: string]: string } = {
     Hogar: 'bx bx-home',
@@ -18,54 +22,74 @@ export class ProyectosComponent implements OnInit {
     Otros: 'bx bx-plus-circle',
   };
 
-  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products';
-  private apiCategorias = 'https://ansurbackendnestjs-production.up.railway.app/categories';
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // get productos
+    this.route.queryParams.subscribe(params => {
+      const searchTerm = params['search'];
+      if (searchTerm) {
+        this.searchProducts(searchTerm);
+      } else {
+        this.loadAllProducts();
+      }
+    });
+
+    this.loadCategories();
+  }
+
+  loadAllProducts() {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: (data) => {
         this.products = data;
-        // Inicializa la cantidad de cada producto
         this.products.forEach(product => product.quantity = 1);
         console.log(data);
       },
       error: (err) => {
         console.error('Error al obtener los productos:', err);
-        alert(`error en la api`);
+        alert('Error en la API');
       },
     });
+  }
 
-    // get categorias
+  searchProducts(searchTerm: string) {
+    const searchUrl = `${this.searchApiUrl}${searchTerm}`;
+    this.http.get<any[]>(searchUrl).subscribe({
+      next: (data) => {
+        this.products = data;
+        this.products.forEach(product => product.quantity = 1);
+        console.log('Productos encontrados:', data);
+      },
+      error: (err) => {
+        console.error('Error al buscar productos:', err);
+        alert('Error al realizar la búsqueda');
+      },
+    });
+  }
+
+  loadCategories() {
     this.http.get<any[]>(this.apiCategorias).subscribe({
-      next: (data: any) => {
+      next: (data) => {
         this.categorias = data;
         console.log(data);
       },
       error: (err) => {
         console.error('Error al obtener las categorías:', err);
-        alert(`error en la api`);
+        alert('Error en la API');
       },
     });
   }
 
-  // get productos por categorias
   getIdCategory(id: number) {
     const apiPC = `https://ansurbackendnestjs-production.up.railway.app/products/category/${id}`;
     this.http.get<any[]>(apiPC).subscribe({
-      next: (data: any) => {
+      next: (data) => {
         this.products = data;
-        // Inicializa la cantidad de cada producto
         this.products.forEach(product => product.quantity = 1);
-        console.log(apiPC);
-        console.log('categorias x id', id);
-        console.log('productos', data);
+        console.log('Productos filtrados por categoría', data);
       },
       error: (err) => {
-        console.error('Error al obtener el id de las categorías:', err);
-        alert(`error en la api`);
+        console.error('Error al obtener los productos por categoría:', err);
+        alert('Error al filtrar por categoría');
       },
     });
   }
