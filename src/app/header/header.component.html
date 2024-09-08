@@ -30,7 +30,7 @@
       Salir
     </a>
     
-    <a routerLink="/cart">
+    <a (click)="handleCartClick()">
       <i class="bx bx-cart"></i>
       Carrito
     </a>
@@ -42,5 +42,13 @@
   <div class="modal-content">
     <p id="modal-content">Mensaje del modal</p>
     <span class="close-btn" (click)="closeModal()">&times;</span>
+  </div>
+</div>
+
+
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <p id="cart-modal-content">Mensaje del modal del carrito</p>
+    <span class="close-btn" (click)="closeCartModal()">&times;</span>
   </div>
 </div>

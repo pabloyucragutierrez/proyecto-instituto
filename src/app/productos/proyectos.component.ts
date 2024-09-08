@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-proyectos',
@@ -22,7 +23,7 @@ export class ProyectosComponent implements OnInit {
     Otros: 'bx bx-plus-circle',
   };
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -107,4 +108,32 @@ export class ProyectosComponent implements OnInit {
       product.quantity--;
     }
   }
+
+
+  onAddToCartClick() {
+    if (!this.authService.isLoggedIn()) {
+      this.showModal('Debe iniciar sesión para agregar productos al carrito.');
+    } else {
+      this.showModal('Producto agregado al carrito.');
+    }
+  }
+
+  showModal(message: string): void {
+    const modalContent = document.getElementById('modal-content');
+    if (modalContent) {
+      modalContent.innerText = message;
+    }
+    const modal = document.getElementById('myModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  closeModal(): void {
+    const modal = document.getElementById('myModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+
 }

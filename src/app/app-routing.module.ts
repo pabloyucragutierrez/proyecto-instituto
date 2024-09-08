@@ -12,6 +12,7 @@ import { DatosDelUsuarioComponent } from './datos-del-usuario/datos-del-usuario.
 import { ComprobanteComponent } from './comprobante/comprobante.component';
 import { TipoDeEntregaComponent } from './tipo-de-entrega/tipo-de-entrega.component';
 import { PagarComponent } from './pagar/pagar.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -46,23 +47,34 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
+    canActivate: [AuthGuard]
+
   },
   {
     path: 'datos-del-usuario',
     component: DatosDelUsuarioComponent,
+    canActivate: [AuthGuard] // Aplica el guard a la ruta
   },
   {
     path: 'comprobante',
     component: ComprobanteComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'tipo-de-entrega',
     component: TipoDeEntregaComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'pagar',
     component: PagarComponent,
+    canActivate: [AuthGuard]
   },
+  {
+    path: '**', 
+    redirectTo: '/inicio',
+    pathMatch: 'full',
+  }
 ];
 
 @NgModule({

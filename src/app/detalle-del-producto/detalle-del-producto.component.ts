@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-detalle-del-producto',
@@ -14,7 +15,7 @@ export class DetalleDelProductoComponent implements OnInit {
   private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products'; 
   products: any[] = []; 
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get('id'); 
@@ -65,4 +66,33 @@ export class DetalleDelProductoComponent implements OnInit {
       quantityInput.value = this.quantity.toString();
     }
   }
+
+
+
+  onAddToCartClick() {
+    if (!this.authService.isLoggedIn()) {
+      this.showModal('Debe iniciar sesión para agregar productos al carrito.');
+    } else {
+      this.showModal('Producto agregado al carrito.');
+    }
+  }
+
+  showModal(message: string): void {
+    const modalContent = document.getElementById('modal-content');
+    if (modalContent) {
+      modalContent.innerText = message;
+    }
+    const modal = document.getElementById('myModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  closeModal(): void {
+    const modal = document.getElementById('myModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+
 }

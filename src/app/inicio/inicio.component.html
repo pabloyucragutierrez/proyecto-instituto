@@ -42,11 +42,17 @@
             [routerLink]="['/detalle-del-producto', product.id]"
             >Ver producto</a
           >
-          <a class="card-button" routerLink="/cart">Agregar al carrito</a>
+          <a class="card-button" (click)="onAddToCartClick()">Agregar al carrito</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<div id="loginModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <p>Debe iniciar sesión para agregar productos al carrito.</p>
+  </div>
+</div>
 <app-footer></app-footer>

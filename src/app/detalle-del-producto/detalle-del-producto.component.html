@@ -16,8 +16,16 @@
         <input type="text" id="quantity" [value]="quantity" min="1" readonly>
         <button class="quantity-btn" (click)="aumentar()">+</button>
       </div>
-      <button class="add-to-cart-btn">Agregar al Carrito</button>
+      <a class="add-to-cart-btn" (click)="onAddToCartClick()">Agregar al carrito</a>
     </div>
   </div>
 </section>
+
+<div id="loginModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <p>Debe iniciar sesión para agregar productos al carrito.</p>
+  </div>
+</div>
+
 <app-footer></app-footer>

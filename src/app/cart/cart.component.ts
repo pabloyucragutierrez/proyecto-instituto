@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -6,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
+  constructor(private authService: AuthService, private router: Router) { }
   quantity: number = 1; 
 
   aumentar() {
@@ -26,4 +29,6 @@ export class CartComponent {
       quantityInput.value = this.quantity.toString();
     }
   }
+
+   
 }

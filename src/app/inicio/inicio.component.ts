@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.css'
+  styleUrl: './inicio.component.css',
 })
 export class InicioComponent {
-
   products: any[] = [];
-  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products'; 
+  isLoggedIn: boolean = false;
+  private apiUrl =
+    'https://ansurbackendnestjs-production.up.railway.app/products';
 
-  constructor(private http: HttpClient) {} 
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   // slider banner
 
@@ -30,12 +32,14 @@ export class InicioComponent {
   }
 
   prevSlide(): void {
-    this.currentIndex = (this.currentIndex > 0) ? this.currentIndex - 1 : this.images.length - 1;
+    this.currentIndex =
+      this.currentIndex > 0 ? this.currentIndex - 1 : this.images.length - 1;
     this.updateSlides();
   }
 
   nextSlide(): void {
-    this.currentIndex = (this.currentIndex < this.images.length - 1) ? this.currentIndex + 1 : 0;
+    this.currentIndex =
+      this.currentIndex < this.images.length - 1 ? this.currentIndex + 1 : 0;
     this.updateSlides();
   }
 
@@ -44,23 +48,22 @@ export class InicioComponent {
     slides.style.transform = `translateX(-${this.currentIndex * 100}%)`;
   }
 
-// pruductos get
+  // pruductos get
 
   ngOnInit() {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: (data) => {
         this.products = data;
-        this.products.forEach(product => product.quantity = 1);
+        this.products.forEach((product) => (product.quantity = 1));
         console.log(data);
       },
       error: (err) => {
-        console.error('Error al obtener los productos:', err); 
-        alert(`error en la api`)
-      }
+        console.error('Error al obtener los productos:', err);
+        alert(`error en la api`);
+      },
     });
   }
-  
-  
+
   aumentar(product: any) {
     product.quantity++;
   }
@@ -71,4 +74,30 @@ export class InicioComponent {
     }
   }
 
+  
+  onAddToCartClick() {
+    if (!this.authService.isLoggedIn()) {
+      this.showModal('Debe iniciar sesión para agregar productos al carrito.');
+    } else {
+      this.showModal('Producto agregado al carrito.');
+    }
+  }
+
+  showModal(message: string): void {
+    const modalContent = document.getElementById('modal-content');
+    if (modalContent) {
+      modalContent.innerText = message;
+    }
+    const modal = document.getElementById('myModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  closeModal(): void {
+    const modal = document.getElementById('myModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
 }
