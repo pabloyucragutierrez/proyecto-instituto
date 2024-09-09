@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Importa HttpClient
-import { Router } from '@angular/router'; // Para redirigir tras el login
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +13,13 @@ export class LoginComponent {
   private loginUrl =
     'https://ansurbackendnestjs-production.up.railway.app/auth/login';
 
-  // Flags para mostrar los modales
   showEmptyFormError: boolean = false;
   showApiError: boolean = false;
+  apiErrorMessage: string = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
-    // Verifica si el formulario está vacío
     if (!this.email || !this.password) {
       this.showEmptyFormError = true;
       return;
@@ -34,7 +33,7 @@ export class LoginComponent {
     this.http.post(this.loginUrl, loginData).subscribe({
       next: (response: any) => {
         this.router.navigate(['/inicio']);
-        console.log('login exito', response);
+        console.log('Login éxito', response);
         localStorage.setItem('nombre', response.user.name);
         localStorage.setItem('apellidos', response.user.lastname);
         localStorage.setItem('token', response.token);
@@ -42,7 +41,19 @@ export class LoginComponent {
       error: (error) => {
         console.error('Error', error);
         this.showApiError = true;
+        this.apiErrorMessage = this.getErrorMessage(error.status);
       },
     });
+  }
+
+  getErrorMessage(statusCode: number): string {
+    switch (statusCode) {
+      case 404:
+        return 'No existe una cuenta con ese correo electrónico.';
+      case 403:
+        return 'La contraseña es incorrecta.';
+      default:
+        return 'Ha ocurrido un error inesperado. Intenta nuevamente.';
+    }
   }
 }

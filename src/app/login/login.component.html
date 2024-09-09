@@ -32,7 +32,7 @@
           <button type="submit">Iniciar sesión</button>
           <div class="register__content">
             <p>¿Aún no tienes una cuenta?</p>
-            <a routerLink="/registrate">Registrate</a>
+            <a routerLink="/registrate">Regístrate</a>
           </div>
         </form>
       </div>
@@ -50,7 +50,7 @@
 <div *ngIf="showApiError" class="modal">
   <div class="modal-content">
     <span class="close" (click)="showApiError = false">&times;</span>
-    <p>Ha ocurrido un error.</p>
+    <p>{{ apiErrorMessage }}</p>
   </div>
 </div>
 

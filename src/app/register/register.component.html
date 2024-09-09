@@ -4,7 +4,7 @@
     <div class="contact-content">
       <div class="contact-form">
         <h2>Crear cuenta</h2>
-        <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="name">Nombre</label>
             <input
@@ -62,7 +62,8 @@
           </div>
           <button type="submit">Crear cuenta</button>
           <div class="register__content">
-            <p>Ya tienes una cuenta?</p> <a routerLink="/login">Iniciar sesión</a>
+            <p>¿Ya tienes una cuenta?</p>
+            <a routerLink="/login">Iniciar sesión</a>
           </div>
         </form>
       </div>
@@ -72,15 +73,33 @@
 
 <div *ngIf="showEmptyFormError" class="modal">
   <div class="modal-content">
-    <span class="close" (click)="showEmptyFormError = false">&times;</span>
-    <p>Completa todos los campos.</p>
+    <span class="close" (click)="clearErrors()">&times;</span>
+    <p *ngIf="errors.name">{{ errors.name }}</p>
+    <p *ngIf="errors.lastname">{{ errors.lastname }}</p>
+    <p *ngIf="errors.phone">{{ errors.phone }}</p>
+    <p *ngIf="errors.email">{{ errors.email }}</p>
+    <p *ngIf="errors.password">{{ errors.password }}</p>
+  </div>
+</div>
+
+<div *ngIf="showEmailExistsError" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="clearErrors()">&times;</span>
+    <p>El correo o teléfono ya están registrados.</p>
   </div>
 </div>
 
 <div *ngIf="showApiError" class="modal">
   <div class="modal-content">
-    <span class="close" (click)="showApiError = false">&times;</span>
-    <p>Ha ocurrido un error.</p>
+    <span class="close" (click)="clearErrors()">&times;</span>
+    <p>Ha ocurrido un error en el registro. Inténtalo de nuevo más tarde.</p>
+  </div>
+</div>
+
+<div *ngIf="showSuccessMessage" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="clearErrors()">&times;</span>
+    <p>¡Cuenta creada exitosamente!</p>
   </div>
 </div>
 

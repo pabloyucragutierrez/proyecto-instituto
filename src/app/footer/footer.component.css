@@ -27,6 +27,9 @@ footer .contenedor__footer article div {
   align-items: center;
   gap: 0.5rem;
 }
+footer .contenedor__footer article .adress__footer{
+  width: 12.5rem;
+}
 
 footer .contenedor__footer article div i {
   color: #fff;

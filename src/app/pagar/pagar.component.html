@@ -32,38 +32,49 @@
     </div>
 
     <div class="payment-layout">
-
       <div class="summary-container">
         <h3>Resumen de tu Pedido</h3>
         <div class="product-card">
           <div class="product-details">
             <p class="product-name"><strong>Foco led Philips</strong></p>
-            <p class="product-price">S/ 12.00</p>
+            <p class="product-price">S/ 2.00</p>
           </div>
         </div>
         <div class="product-card">
           <div class="product-details">
             <p class="product-name"><strong>Ganchos de pared</strong></p>
-            <p class="product-price">S/ 3.00</p>
+            <p class="product-price">S/ 2.00</p>
           </div>
         </div>
         <div class="product-card">
           <div class="product-details">
             <p class="product-name"><strong>USB de 32 GB Kingston</strong></p>
-            <p class="product-price">S/ 12.00</p>
+            <p class="product-price">S/ 2.00</p>
           </div>
         </div>
         <div class="total-summary">
           <p class="total-label"><strong>Total:</strong></p>
-          <p class="total-amount"><strong>S/ 27.00</strong></p>
+          <p class="total-amount"><strong>S/ 6.00</strong></p>
         </div>
-        <hr>
-        <br>
+        <hr />
+        <br />
+        <!-- <div class="btn__form">
+          <a routerLink="/tipo-de-entrega" class="btn btn-comprar">Regresar</a>
+          <button type="submit" class="btn btn-comprar">
+            Pagar con mercado pago
+          </button>
+        </div> -->
         <div class="btn__form">
           <a routerLink="/tipo-de-entrega" class="btn btn-comprar">Regresar</a>
-            <button type="submit" class="btn btn-comprar">Pagar con mercado pago</button>
-          </div>
-
+          <button
+            type="button"
+            class="btn btn-comprar mercado__pago"
+            (click)="payWithMercadoPago()"
+          >
+            <img src="/assets/mercadopago.png" alt="Mercado Pago" />
+            <p>Pagar con Mercado Pago</p>
+          </button>
+        </div>
       </div>
     </div>
   </div>
