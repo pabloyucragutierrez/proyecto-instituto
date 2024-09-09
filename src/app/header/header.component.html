@@ -20,7 +20,7 @@
   
   
   <div class="icons">
-    <a routerLink="/login">
+    <a [routerLink]="name ? '/mis-pedidos' : '/login'">
       <i class="bx bx-user-circle"></i>
       {{ name ? name : 'Cuenta' }}
     </a>
