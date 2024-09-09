@@ -68,7 +68,7 @@ header .icons a{
 
 /* Modal Styles */
 .modal {
-  display: none; /* Oculta el modal por defecto */
+  display: none; 
   position: fixed;
   z-index: 1000;
   left: 0;
@@ -82,7 +82,7 @@ header .icons a{
 }
 
 .modal-show {
-  display: block; /* Muestra el modal cuando la clase modal-show está activa */
+  display: block;
 }
 
 .modal-content {

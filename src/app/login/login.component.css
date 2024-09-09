@@ -66,6 +66,33 @@
   outline: none;
 }
 
+.password-group {
+  position: relative;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 0.75rem;
+  padding-right: 3rem; /* Ajusta el espacio para el ícono */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.password-wrapper i {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem; /* Espacio desde el borde derecho */
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+
+
 button {
   display: block;
   padding: 0.75rem 2.5rem;
@@ -121,5 +148,4 @@ button {
   cursor: pointer;
   font-size: 20px;
 }
-
 

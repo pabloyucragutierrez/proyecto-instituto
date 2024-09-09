@@ -40,9 +40,9 @@ export class PagarComponent implements AfterViewInit {
         }
       ],
       back_urls: {
-        success: 'http://www.ansur.com/success',
-        failure: 'http://www.ansur.com/failure',
-        pending: 'http://www.ansur.com/pending'
+        success: 'https://proyecto-del-instituto.netlify.app/compra-realizada',
+        failure: 'https://proyecto-del-instituto.netlify.app/error-en-la-compra',
+        pending: 'https://proyecto-del-instituto.netlify.app/'
       },
       auto_return: 'approved',
       payer_email: 'pabloyucragutierrez@gmail.com'

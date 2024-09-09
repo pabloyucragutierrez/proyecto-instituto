@@ -15,13 +15,15 @@ export class RegisterComponent {
     email: '',
     password: ''
   };
+  
+  passwordType: string = 'password';
 
   private registerUrl = 'https://ansurbackendnestjs-production.up.railway.app/auth/register';
 
   showEmptyFormError: boolean = false;
   showEmailExistsError: boolean = false;
   showApiError: boolean = false;
-  showSuccessMessage: boolean = false; 
+  showSuccessMessage: boolean = false;
 
   errors: any = {
     name: '',
@@ -37,26 +39,31 @@ export class RegisterComponent {
     this.clearErrors();
     let isValid = true;
 
+    // Validación de nombre
     if (!this.user.name || !/^[a-zA-Z\s]{2,}$/.test(this.user.name)) {
       this.errors.name = 'Nombre incorrecto. Debe contener al menos 2 letras.';
       isValid = false;
     }
 
+    // Validación de apellido
     if (!this.user.lastname || !/^[a-zA-Z\s]{2,}$/.test(this.user.lastname)) {
       this.errors.lastname = 'Apellido incorrecto. Debe contener al menos 2 letras.';
       isValid = false;
     }
 
+    // Validación de teléfono
     if (!this.user.phone || !/^[0-9]{9}$/.test(this.user.phone)) {
       this.errors.phone = 'Teléfono incorrecto. Debe contener 9 dígitos.';
       isValid = false;
     }
 
+    // Validación de email
     if (!this.user.email || !/\S+@\S+\.\S+/.test(this.user.email)) {
       this.errors.email = 'Email incorrecto.';
       isValid = false;
     }
 
+    // Validación de contraseña
     if (!this.user.password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(this.user.password)) {
       this.errors.password = 'La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número.';
       isValid = false;
@@ -90,7 +97,7 @@ export class RegisterComponent {
         console.log('Registro exitoso:', response);
         this.showSuccessMessage = true; 
         setTimeout(() => {
-          this.router.navigate(['/login']); 
+          this.router.navigate(['/login']);
         }, 3000);
       },
       error: (error) => {
@@ -102,5 +109,9 @@ export class RegisterComponent {
         console.error('Error en el registro:', error);
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
   }
 }

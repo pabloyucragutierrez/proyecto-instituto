@@ -13,6 +13,9 @@ import { ComprobanteComponent } from './comprobante/comprobante.component';
 import { TipoDeEntregaComponent } from './tipo-de-entrega/tipo-de-entrega.component';
 import { PagarComponent } from './pagar/pagar.component';
 import { AuthGuard } from './auth.guard';
+import { CompraRealizadaComponent } from './compra-realizada/compra-realizada.component';
+import { ErrorEnLaCompraComponent } from './error-en-la-compra/error-en-la-compra.component';
+import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
 
 const routes: Routes = [
   {
@@ -68,6 +71,21 @@ const routes: Routes = [
   {
     path: 'pagar',
     component: PagarComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'compra-realizada',
+    component: CompraRealizadaComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'error-en-la-compra',
+    component: ErrorEnLaCompraComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'mis-pedidos',
+    component: MisPedidosComponent,
     canActivate: [AuthGuard]
   },
   {

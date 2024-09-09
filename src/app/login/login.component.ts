@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email: string = '';
   password: string = '';
+  passwordType: string = 'password'; // Variable para gestionar el tipo de input de la contraseña
   private loginUrl =
     'https://ansurbackendnestjs-production.up.railway.app/auth/login';
 
@@ -55,5 +56,9 @@ export class LoginComponent {
       default:
         return 'Ha ocurrido un error inesperado. Intenta nuevamente.';
     }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
   }
 }

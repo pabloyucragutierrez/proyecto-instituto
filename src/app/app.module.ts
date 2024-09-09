@@ -19,6 +19,9 @@ import { DatosDelUsuarioComponent } from './datos-del-usuario/datos-del-usuario.
 import { ComprobanteComponent } from './comprobante/comprobante.component';
 import { TipoDeEntregaComponent } from './tipo-de-entrega/tipo-de-entrega.component';
 import { PagarComponent } from './pagar/pagar.component';
+import { CompraRealizadaComponent } from './compra-realizada/compra-realizada.component';
+import { ErrorEnLaCompraComponent } from './error-en-la-compra/error-en-la-compra.component';
+import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import { PagarComponent } from './pagar/pagar.component';
     DatosDelUsuarioComponent,
     ComprobanteComponent,
     TipoDeEntregaComponent,
-    PagarComponent
+    PagarComponent,
+    CompraRealizadaComponent,
+    ErrorEnLaCompraComponent,
+    MisPedidosComponent
   ],
   imports: [
     BrowserModule,
