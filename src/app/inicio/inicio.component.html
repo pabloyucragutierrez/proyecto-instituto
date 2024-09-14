@@ -40,19 +40,18 @@
           <a
             class="card-button"
             [routerLink]="['/detalle-del-producto', product.id]"
-            >Ver producto</a
-          >
-          <a class="card-button" (click)="onAddToCartClick()">Agregar al carrito</a>
+          >Ver producto</a>
+          <a class="card-button" (click)="addToCart(product)">Agregar al carrito</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div id="loginModal" class="modal" style="display: none;">
+<div id="myModal" class="modal" style="display: none;">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
-    <p>Debe iniciar sesión para agregar productos al carrito.</p>
+    <p id="modal-content">Debe iniciar sesión para agregar productos al carrito.</p>
   </div>
 </div>
 <app-footer></app-footer>

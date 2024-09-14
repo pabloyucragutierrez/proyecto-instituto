@@ -49,7 +49,7 @@ export class ProyectosComponent implements OnInit {
       next: (data) => {
         this.products = data;
         this.products.forEach((product) => (product.quantity = 1));
-        console.log(data);
+        // console.log(data);
       },
       error: (err) => {
         console.error('Error al obtener los productos:', err);
@@ -64,10 +64,10 @@ export class ProyectosComponent implements OnInit {
       next: (data) => {
         this.products = data;
         this.products.forEach((product) => (product.quantity = 1));
-        console.log('Productos encontrados:', data);
+        // console.log('Productos encontrados:', data);
       },
       error: (err) => {
-        console.error('Error al buscar productos:', err);
+        // console.error('Error al buscar productos:', err);
         alert('Error al realizar la búsqueda');
       },
     });
@@ -77,10 +77,10 @@ export class ProyectosComponent implements OnInit {
     this.http.get<any[]>(this.apiCategorias).subscribe({
       next: (data) => {
         this.categorias = data;
-        console.log(data);
+        // console.log(data);
       },
       error: (err) => {
-        console.error('Error al obtener las categorías:', err);
+        // console.error('Error al obtener las categorías:', err);
         alert('Error en la API');
       },
     });
@@ -92,10 +92,10 @@ export class ProyectosComponent implements OnInit {
       next: (data) => {
         this.products = data;
         this.products.forEach((product) => (product.quantity = 1));
-        console.log('Productos filtrados por categoría', data);
+        // console.log('Productos filtrados por categoría', data);
       },
       error: (err) => {
-        console.error('Error al obtener los productos por categoría:', err);
+        // console.error('Error al obtener los productos por categoría:', err);
         alert('Error al filtrar por categoría');
       },
     });
@@ -196,11 +196,11 @@ export class ProyectosComponent implements OnInit {
 
       this.http.post(this.cartApiUrl, payload, { headers }).subscribe({
         next: (response) => {
-          console.log('Producto agregado al carrito:', response);
+          // console.log('Producto agregado al carrito:', response);
           this.showModal('Producto agregado al carrito.');
         },
         error: (err) => {
-          console.error('Error al agregar producto al carrito:', err);
+          // console.error('Error al agregar producto al carrito:', err);
           this.showModal(
             `Error al agregar producto al carrito: ${err.message}`
           );

@@ -36,7 +36,7 @@ export class CartComponent implements OnInit {
             }))
             
           );
-          console.log(response);
+          // console.log(response);
           this.cartItems = products;
           this.calculateTotal();
         }, error => {

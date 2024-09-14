@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email: string = '';
   password: string = '';
-  passwordType: string = 'password'; // Variable para gestionar el tipo de input de la contraseña
+  passwordType: string = 'password'; 
   private loginUrl =
     'https://ansurbackendnestjs-production.up.railway.app/auth/login';
 
@@ -34,7 +34,7 @@ export class LoginComponent {
     this.http.post(this.loginUrl, loginData).subscribe({
       next: (response: any) => {
         this.router.navigate(['/inicio']);
-        console.log('Login éxito', response);
+        // console.log('Login éxito', response);
         localStorage.setItem('nombre', response.user.name);
         localStorage.setItem('apellidos', response.user.lastname);
         localStorage.setItem('token', response.token);

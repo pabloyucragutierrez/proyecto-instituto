@@ -94,7 +94,7 @@ export class RegisterComponent {
 
     this.http.post(this.registerUrl, this.user).subscribe({
       next: (response: any) => {
-        console.log('Registro exitoso:', response);
+        // console.log('Registro exitoso:', response);
         this.showSuccessMessage = true; 
         setTimeout(() => {
           this.router.navigate(['/login']);
