@@ -8,12 +8,12 @@
         </div>
         <p>Datos del Usuario</p>
       </div>
-      <div class="step active">
+      <!-- <div class="step active">
         <div class="step-icon">
           <i class="bx bx-receipt"></i>
         </div>
         <p>Comprobante</p>
-      </div>
+      </div> -->
       <div class="step active">
         <div class="step-icon">
           <i class="bx bx-package"></i>
@@ -27,7 +27,7 @@
         <p>Pago</p>
       </div>
       <div class="progress-bar">
-        <div class="progress" style="width: 65%"></div>
+        <div class="progress" style="width: 50%"></div>
       </div>
     </div>
 
@@ -52,7 +52,12 @@
           </article>
         </div>
 
-        <form class="form__entrega" *ngIf="isActive('delivery')">
+        <form
+          class="form__entrega"
+          *ngIf="isActive('delivery')"
+          [formGroup]="entregaForm"
+          (ngSubmit)="onSubmit()"
+        >
           <div class="form-row">
             <div class="form-group half-width">
               <label for="direccion">Dirección/distrito/provincia/región</label>
@@ -60,17 +65,24 @@
                 type="text"
                 id="direccion"
                 placeholder="Dirección"
-                required
+                formControlName="direccion"
               />
+              <div *ngIf="entregaForm.get('direccion')?.invalid && entregaForm.get('direccion')?.touched">
+                <small class="error-text">Este campo es obligatorio</small>
+              </div>
             </div>
+
             <div class="form-group half-width">
               <label for="referencia">Referencia</label>
               <input
                 type="text"
                 id="referencia"
                 placeholder="Referencia"
-                required
+                formControlName="referencia"
               />
+              <div *ngIf="entregaForm.get('referencia')?.invalid && entregaForm.get('referencia')?.touched">
+                <small class="error-text">Este campo es obligatorio</small>
+              </div>
             </div>
           </div>
           <br />
@@ -83,23 +95,30 @@
                   type="text"
                   id="nombre-receptor"
                   placeholder="Nombres y apellidos"
-                  required
+                  formControlName="nombreReceptor"
                 />
+                <div *ngIf="entregaForm.get('nombreReceptor')?.invalid && entregaForm.get('nombreReceptor')?.touched">
+                  <small class="error-text">Este campo es obligatorio</small>
+                </div>
               </div>
+
               <div class="form-group half-width">
                 <label for="telefono">Teléfono</label>
                 <input
                   type="text"
                   id="telefono"
                   placeholder="Teléfono"
-                  required
+                  formControlName="telefono"
                 />
+                <div *ngIf="entregaForm.get('telefono')?.invalid && entregaForm.get('telefono')?.touched">
+                  <small class="error-text">Este campo es obligatorio</small>
+                </div>
               </div>
             </div>
           </div>
           <div class="btn__form">
-            <a routerLink="/comprobante" class="btn btn-comprar">Regresar</a>
-            <a routerLink="/pagar" class="btn btn-comprar">Continuar</a>
+            <a routerLink="/datos-del-usuario" class="btn btn-comprar">Regresar</a>
+            <button type="submit" class="btn btn-comprar">Continuar</button>
           </div>
         </form>
 
@@ -113,7 +132,13 @@
             Cuando el pedido esté listo para recogerse, te avisaremos a través
             de una llamada
           </p>
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3827.3803355712826!2d-71.53874012582217!3d-16.405499084323765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91424af819a9a93b%3A0xdb0d19b772b79adf!2sGarc%C3%AD%20de%20Carbajal%20101%2C%20Arequipa%2004001!5e0!3m2!1ses!2spe!4v1725838165510!5m2!1ses!2spe" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3827.3803355712826!2d-71.53874012582217!3d-16.405499084323765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91424af819a9a93b%3A0xdb0d19b772b79adf!2sGarc%C3%AD%20de%20Carbajal%20101%2C%20Arequipa%2004001!5e0!3m2!1ses!2spe!4v1725838165510!5m2!1ses!2spe"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
           <div class="btn__form">
             <a routerLink="/comprobante" class="btn btn-comprar">Regresar</a>
             <a routerLink="/pagar" class="btn btn-comprar">Continuar</a>
@@ -123,30 +148,30 @@
 
       <div class="summary-container">
         <h3>Resumen de tu Pedido</h3>
-        <div class="product-card">
+        <div *ngFor="let product of products" class="product-card">
+          <img [src]="product.image1" alt="{{ product.title }}" class="product-image" />
           <div class="product-details">
-            <p class="product-name"><strong>Foco led Philips</strong></p>
-            <p class="product-price">S/ 12.00</p>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-details">
-            <p class="product-name"><strong>Ganchos de pared</strong></p>
-            <p class="product-price">S/ 3.00</p>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-details">
-            <p class="product-name"><strong>USB de 32 GB Kingston</strong></p>
-            <p class="product-price">S/ 12.00</p>
+            <p class="product-name"><strong>{{ product.title }}</strong></p>
+            <p class="product-price">S/ {{ product.unit_price.toFixed(2) }}</p>
+            <p>Cantidad: {{product.quantity}}</p>
           </div>
         </div>
         <div class="total-summary">
           <p class="total-label"><strong>Total:</strong></p>
-          <p class="total-amount"><strong>S/ 27.00</strong></p>
+          <p class="total-amount"><strong>S/ {{ totalAmount.toFixed(2) }}</strong></p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- Modal de error -->
+<div *ngIf="showErrorModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeErrorModal()">&times;</span>
+    <h2>Error</h2>
+    <p>Por favor, complete todos los campos obligatorios.</p>
+  </div>
+</div>
+
 <app-footer></app-footer>

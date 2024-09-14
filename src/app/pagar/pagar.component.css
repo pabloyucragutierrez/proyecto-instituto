@@ -201,10 +201,15 @@ h3 {
   font-size: 18px;
 }
 
+.product-card img{
+  width: 5rem;
+  object-fit: cover;
+}
 .product-card {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: .5rem;
   padding: 10px 0;
   border-bottom: 1px solid #e0e0e0;
 }

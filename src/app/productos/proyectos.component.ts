@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -14,6 +14,8 @@ export class ProyectosComponent implements OnInit {
   private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products';
   private apiCategorias = 'https://ansurbackendnestjs-production.up.railway.app/categories';
   private searchApiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products/search/';
+  private cartApiUrl = 'https://ansurbackendnestjs-production.up.railway.app/mercadopago/payments';
+  private cardTokenApiUrl = 'https://ansurbackendnestjs-production.up.railway.app/mercadopago/card_token';
 
   iconosPorCategoria: { [key: string]: string } = {
     Hogar: 'bx bx-home',
@@ -23,10 +25,14 @@ export class ProyectosComponent implements OnInit {
     Otros: 'bx bx-plus-circle',
   };
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       const searchTerm = params['search'];
       if (searchTerm) {
         this.searchProducts(searchTerm);
@@ -42,7 +48,7 @@ export class ProyectosComponent implements OnInit {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: (data) => {
         this.products = data;
-        this.products.forEach(product => product.quantity = 1);
+        this.products.forEach((product) => (product.quantity = 1));
         console.log(data);
       },
       error: (err) => {
@@ -57,7 +63,7 @@ export class ProyectosComponent implements OnInit {
     this.http.get<any[]>(searchUrl).subscribe({
       next: (data) => {
         this.products = data;
-        this.products.forEach(product => product.quantity = 1);
+        this.products.forEach((product) => (product.quantity = 1));
         console.log('Productos encontrados:', data);
       },
       error: (err) => {
@@ -85,7 +91,7 @@ export class ProyectosComponent implements OnInit {
     this.http.get<any[]>(apiPC).subscribe({
       next: (data) => {
         this.products = data;
-        this.products.forEach(product => product.quantity = 1);
+        this.products.forEach((product) => (product.quantity = 1));
         console.log('Productos filtrados por categoría', data);
       },
       error: (err) => {
@@ -109,12 +115,100 @@ export class ProyectosComponent implements OnInit {
     }
   }
 
+  async generateCardToken() {
+    const cardDetails = {
+      card_number: '5031755734530604',
+      expiration_year: '2025',
+      expiration_month: 11,
+      security_code: '123',
+      cardholder: {
+        name: 'Javier',
+        identification: {
+          number: '43898724',
+          type: 'DNI',
+        },
+      },
+    };
 
-  onAddToCartClick() {
+    const token = localStorage.getItem('token');
+
+    const headers = token
+      ? new HttpHeaders({ Authorization: `${token}` })
+      : new HttpHeaders();
+
+    try {
+      const response = await this.http
+        .post(this.cardTokenApiUrl, cardDetails, { headers })
+        .toPromise();
+
+      if (response && (response as any).id) {
+        return (response as any).id;
+      } else {
+        throw new Error('Respuesta inválida al generar el token de tarjeta');
+      }
+    } catch (error) {
+      console.error('Error al generar el token de tarjeta:', error);
+      throw error;
+    }
+  }
+
+  async addToCart(product: any) {
     if (!this.authService.isLoggedIn()) {
       this.showModal('Debe iniciar sesión para agregar productos al carrito.');
-    } else {
-      this.showModal('Producto agregado al carrito.');
+      return;
+    }
+
+    try {
+      const cardToken = await this.generateCardToken();
+      const idUser = localStorage.getItem('id');
+
+      const payload = {
+        transaction_amount: product.price * product.quantity,
+        token: cardToken, 
+        installments: 1,
+        issuer_id: '12347',
+        payment_method_id: 'master',
+        payer: {
+          email: 'javier@gmail.com',
+          identification: {
+            type: 'DNI',
+            number: '43898724',
+          },
+        },
+        order: {
+          id_client: idUser,
+          id_address: 1,
+          amount: product.price * product.quantity,
+          products: [
+            {
+              id: product.id,
+              quantity: product.quantity,
+            },
+          ],
+        },
+      };
+
+      const authToken = localStorage.getItem('token');
+
+      const headers = authToken
+        ? new HttpHeaders({ Authorization: `${authToken}` })
+        : new HttpHeaders();
+
+      this.http.post(this.cartApiUrl, payload, { headers }).subscribe({
+        next: (response) => {
+          console.log('Producto agregado al carrito:', response);
+          this.showModal('Producto agregado al carrito.');
+        },
+        error: (err) => {
+          console.error('Error al agregar producto al carrito:', err);
+          this.showModal(
+            `Error al agregar producto al carrito: ${err.message}`
+          );
+        },
+      });
+    } catch (error) {
+      console.error('Error al generar el token de tarjeta:', error);
+      this.showModal('Error al generar el token de tarjeta.');
     }
   }
 
@@ -135,5 +229,4 @@ export class ProyectosComponent implements OnInit {
       modal.style.display = 'none';
     }
   }
-
 }

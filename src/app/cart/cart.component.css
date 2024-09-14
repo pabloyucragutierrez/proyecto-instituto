@@ -62,8 +62,9 @@
 
 .cart-item-meta {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .cart-item-price {

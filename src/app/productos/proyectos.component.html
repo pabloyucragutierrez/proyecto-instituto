@@ -1,12 +1,10 @@
 <app-header></app-header>
 <div class="categorias__header">
   <nav *ngFor="let categoria of categorias">
-    <button (click)="getIdCategory(categoria.id)"> <i [class]="obtenerIcono(categoria.name)"></i>  {{categoria.name}} </button>
-    <!-- <button><i class='bx bx-home'></i> Hogar</button>
-    <button><i class='bx bx-laptop'></i> Computación</button>
-    <button><i class='bx bx-headphone'></i> Accesorios</button>
-    <button><i class='bx bxs-washer'></i> Limpieza</button>
-    <button><i class='bx bx-plus-circle'></i> Otros</button> -->
+    <button (click)="getIdCategory(categoria.id)"> 
+      <i [class]="obtenerIcono(categoria.name)"></i>  
+      {{categoria.name}} 
+    </button>
   </nav>
 </div>
 <section class="section section__productos">
@@ -25,7 +23,7 @@
         </div>
         <div class="btns__content">
           <a class="card-button" [routerLink]="['/detalle-del-producto', product.id]">Ver producto</a>
-          <a class="card-button" (click)="onAddToCartClick()">Agregar al carrito</a>
+          <a class="card-button" (click)="addToCart(product)">Agregar al carrito</a>
         </div>
       </div>
     </div>

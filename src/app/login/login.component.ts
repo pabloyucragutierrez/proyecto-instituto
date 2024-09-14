@@ -38,6 +38,7 @@ export class LoginComponent {
         localStorage.setItem('nombre', response.user.name);
         localStorage.setItem('apellidos', response.user.lastname);
         localStorage.setItem('token', response.token);
+        localStorage.setItem('id', response.user.id);
       },
       error: (error) => {
         console.error('Error', error);

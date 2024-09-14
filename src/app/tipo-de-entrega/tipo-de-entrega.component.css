@@ -176,9 +176,14 @@
     font-size: 18px;
   }
   
+  .product-card img{
+    width: 5rem;
+    object-fit: cover;
+  }
   .product-card {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: .5rem;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #e0e0e0;
@@ -246,4 +251,56 @@
   height: 15rem;
   margin-bottom: 1rem;
   margin-top: 2rem;
+}
+
+
+
+
+
+
+.error-text {
+  color: red;
+  font-size: 12px;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100000;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative; /* Necesario para posicionar el ícono de cierre */
+}
+
+.modal-content h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.modal-content p {
+  margin: 10px 0;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.close i {
+  color: #000;
 }

@@ -3,39 +3,36 @@
   <div class="cart-container">
     <h2 class="cart-title">Carrito de compras</h2>
     <div class="cart-item-list">
-      <div class="cart-item">
-        <img src="assets/aro-luz.png" alt="Producto" class="cart-item-image" />
+      <div *ngFor="let item of cartItems" class="cart-item">
+        <img [src]="item.image1" alt="{{ item.title }}" class="cart-item-image" />
         <div class="cart-item-details">
-          <h3 class="cart-item-title">Producto 1</h3>
+          <h3 class="cart-item-title">{{ item.title }}</h3>
           <p class="cart-item-description">
-            Descripción: detalle del producto. Incluye información sobre
-            características, beneficios, y otros detalles relevantes.
+            Descripción: {{ item.description }}
           </p>
           <div class="cart-item-meta">
-            <p class="cart-item-price">$29.99</p>
-            <button class="cart-item-remove">
+            <p class="cart-item-price">$ {{ item.unit_price.toFixed(2) }}</p>
+            <!-- <button class="cart-item-remove" (click)="removeItem(item.id)">
               <i class="bx bxs-trash-alt"></i>
-            </button>
-            <div class="quantity-selector">
-              <button class="quantity-btn" (click)="disminuir()">-</button>
+            </button> -->
+            <p>Cantidad: {{item.quantity}}</p>
+            <!-- <div class="quantity-selector">
+              <button class="quantity-btn" (click)="updateQuantity(item.id, -1)">-</button>
               <input
                 type="text"
-                id="quantity"
-                [value]="quantity"
-                min="1"
+                [value]="item.quantity"
                 readonly
               />
-              <button class="quantity-btn" (click)="aumentar()">+</button>
-            </div>
+              <button class="quantity-btn" (click)="updateQuantity(item.id, 1)">+</button>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
     <div class="cart-summary">
-      <p class="summary-total">Total: $29.99</p>
+      <p class="summary-total">Total: $ {{ totalAmount.toFixed(2) }}</p>
       <a class="checkout-button" routerLink="/datos-del-usuario">Continuar</a>
     </div>
   </div>
 </section>
-
 <app-footer></app-footer>

@@ -13,7 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DetalleDelProductoComponent } from './detalle-del-producto/detalle-del-producto.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CartComponent } from './cart/cart.component';
 import { DatosDelUsuarioComponent } from './datos-del-usuario/datos-del-usuario.component';
 import { ComprobanteComponent } from './comprobante/comprobante.component';
@@ -48,7 +48,8 @@ import { MisPedidosComponent } from './mis-pedidos/mis-pedidos.component';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
