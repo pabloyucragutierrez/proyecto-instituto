@@ -78,7 +78,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-declare const MercadoPago: any; // Declara MercadoPago para usarlo en TypeScript
+declare const MercadoPago: any; 
 
 @Component({
   selector: 'app-pagar',
@@ -93,12 +93,10 @@ export class PagarComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    // Inicializa MercadoPago
     this.mp = new MercadoPago('TEST-34422d86-4f9c-4426-8b6d-60ff374b6909', {
       locale: 'es-AR',
     });
 
-    // Recupera los datos del carrito desde localStorage
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     this.products = cart.map((product: any) => ({
       id: product.id,
@@ -126,9 +124,9 @@ export class PagarComponent implements OnInit {
             unit_price: product.price,
           })),
           back_urls: {
-            success: 'http://localhost:4200/compra-realizada?status=approved',
-            failure: 'http://localhost:4200/error-en-la-compra?status=failed',
-            pending: 'http://localhost:4200/?status=pending',
+            success: 'https://proyecto-del-instituto.netlify.app/compra-realizada?status=approved',
+            failure: 'https://proyecto-del-instituto.netlify.app/error-en-la-compra?status=failed',
+            pending: 'https://proyecto-del-instituto.netlify.app/?status=pending',
           },
           auto_return: 'approved',
           payer_email: 'pabloyucragutierrez@gmail.com',
@@ -138,7 +136,6 @@ export class PagarComponent implements OnInit {
         (response) => {
           const preferenceId = response.id;
 
-          // Crea la preferencia en MercadoPago
           this.mp.checkout({
             preference: {
               id: preferenceId,
@@ -153,13 +150,11 @@ export class PagarComponent implements OnInit {
   }
 
   storePurchasedProducts(): void {
-    // Almacena los productos comprados en localStorage
     localStorage.setItem('purchasedProducts', JSON.stringify(this.products));
     localStorage.setItem('totalAmount', JSON.stringify(this.totalAmount));
   }
 
   clearCart(): void {
-    // Limpia el carrito del localStorage
     localStorage.removeItem('cart');
     this.products = [];
     this.totalAmount = 0;
