@@ -108,6 +108,9 @@ export class DetalleDelProductoComponent implements OnInit {
       return;
     }
 
+     this.saveProductToLocalStorage(this.product);
+
+
     try {
       const cardToken = await this.generateCardToken();
       const idUser = localStorage.getItem('id');
@@ -152,6 +155,28 @@ export class DetalleDelProductoComponent implements OnInit {
       this.showModal(`Error al agregar producto al carrito: ${errorMessage}`);
     }
   }
+
+  
+  saveProductToLocalStorage(product: any) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const existingProductIndex = cart.findIndex((item: any) => item.id === product.id);
+
+    if (existingProductIndex !== -1) {
+      cart[existingProductIndex].quantity += this.quantity;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        quantity:this.quantity,
+        price: product.price,
+        image: product.image1,
+      });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+
 
   showModal(message: string): void {
     const modalContent = document.getElementById('modal-content');

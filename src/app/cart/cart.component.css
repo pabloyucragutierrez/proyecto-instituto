@@ -71,6 +71,11 @@
     font-size: 1.2em;
     color: #333;
 }
+.cart__delete{
+    display: flex;
+    gap: .4rem;
+    align-items: center;
+}
 
 .cart-item-quantity {
     width: 70px;

@@ -4,16 +4,16 @@
     <h2 class="cart-title">Compras realizadas</h2>
     <div class="cart-item-list" *ngIf="products.length > 0; else noProducts">
       <div *ngFor="let product of products" class="cart-item">
-        <img [src]="product.image1" alt="Producto" class="cart-item-image" />
+        <img [src]="product.image" alt="Producto" class="cart-item-image" />
         <div class="cart-item-details">
-          <h3 class="cart-item-title">{{ product.title }}</h3>
+          <h3 class="cart-item-title">{{ product.name }}</h3>
           <p class="cart-item-description">
             <b>Descripción:</b> detalle del producto. Incluye información sobre características, beneficios, y otros detalles relevantes.
           </p>
           <div class="cart-item-meta">
-            <p class="cart-item-price"><b>Precio:</b> ${{ product.unit_price.toFixed(2) }}</p>
+            <p class="cart-item-price"><b>Precio:</b> ${{ product.price.toFixed(2) }}</p>
             <p class="cart-item-price"><b>Cantidad:</b> {{ product.quantity }}</p>
-            <p class="cart-item-price"><b>Total:</b> S/ {{ (product.unit_price * product.quantity).toFixed(2) }}</p>
+            <p class="cart-item-price"><b>Total:</b> S/ {{ (product.price * product.quantity).toFixed(2) }}</p>
           </div>
         </div>
       </div>

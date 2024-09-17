@@ -10,6 +10,7 @@ export class MisPedidosComponent implements OnInit {
   totalAmount: number = 0;
 
   ngOnInit(): void {
+    
     const storedProducts = localStorage.getItem('purchasedProducts');
     const storedTotalAmount = localStorage.getItem('totalAmount');
 

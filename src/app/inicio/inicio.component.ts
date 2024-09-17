@@ -17,9 +17,12 @@ export class InicioComponent implements OnInit {
     'assets/banner5.png',
   ];
   currentIndex: number = 0;
-  private apiUrl = 'https://ansurbackendnestjs-production.up.railway.app/products';
-  private cartApiUrl = 'https://ansurbackendnestjs-production.up.railway.app/mercadopago/payments';
-  private cardTokenApiUrl = 'https://ansurbackendnestjs-production.up.railway.app/mercadopago/card_token';
+  private apiUrl =
+    'https://ansurbackendnestjs-production.up.railway.app/products';
+  private cartApiUrl =
+    'https://ansurbackendnestjs-production.up.railway.app/mercadopago/payments';
+  private cardTokenApiUrl =
+    'https://ansurbackendnestjs-production.up.railway.app/mercadopago/card_token';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -36,19 +39,20 @@ export class InicioComponent implements OnInit {
     });
   }
 
-  // Slider banner methods
   goToSlide(index: number): void {
     this.currentIndex = index;
     this.updateSlides();
   }
 
   prevSlide(): void {
-    this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.images.length - 1;
+    this.currentIndex =
+      this.currentIndex > 0 ? this.currentIndex - 1 : this.images.length - 1;
     this.updateSlides();
   }
 
   nextSlide(): void {
-    this.currentIndex = this.currentIndex < this.images.length - 1 ? this.currentIndex + 1 : 0;
+    this.currentIndex =
+      this.currentIndex < this.images.length - 1 ? this.currentIndex + 1 : 0;
     this.updateSlides();
   }
 
@@ -83,10 +87,14 @@ export class InicioComponent implements OnInit {
     };
 
     const token = localStorage.getItem('token');
-    const headers = token ? new HttpHeaders({ Authorization: `${token}` }) : new HttpHeaders();
+    const headers = token
+      ? new HttpHeaders({ Authorization: `${token}` })
+      : new HttpHeaders();
 
     try {
-      const response = await this.http.post(this.cardTokenApiUrl, cardDetails, { headers }).toPromise();
+      const response = await this.http
+        .post(this.cardTokenApiUrl, cardDetails, { headers })
+        .toPromise();
       if (response && (response as any).id) {
         return (response as any).id;
       } else {
@@ -98,11 +106,64 @@ export class InicioComponent implements OnInit {
     }
   }
 
+  // async addToCart(product: any) {
+  //   if (!this.authService.isLoggedIn()) {
+  //     this.showModal('Debe iniciar sesión para agregar productos al carrito.');
+  //     return;
+  //   }
+
+  //   try {
+  //     const cardToken = await this.generateCardToken();
+  //     const idUser = localStorage.getItem('id');
+
+  //     const payload = {
+  //       transaction_amount: product.price * product.quantity,
+  //       token: cardToken,
+  //       installments: 1,
+  //       issuer_id: '12347',
+  //       payment_method_id: 'master',
+  //       payer: {
+  //         email: 'javier@gmail.com',
+  //         identification: {
+  //           type: 'DNI',
+  //           number: '43898724',
+  //         },
+  //       },
+  //       order: {
+  //         id_client: idUser,
+  //         id_address: 1,
+  //         amount: product.price * product.quantity,
+  //         products: [
+  //           {
+  //             id: product.id,
+  //             quantity: product.quantity,
+  //           },
+  //         ],
+  //       },
+  //     };
+
+  //     const authToken = localStorage.getItem('token');
+  //     const headers = authToken ? new HttpHeaders({ Authorization: `${authToken}` }) : new HttpHeaders();
+
+  //     await this.http.post(this.cartApiUrl, payload, { headers }).toPromise();
+  //     this.showModal('Producto agregado al carrito.');
+  //   } catch (error) {
+  //     let errorMessage = 'Error desconocido';
+  //     if (error instanceof Error) {
+  //       errorMessage = error.message;
+  //     }
+  //     // console.error('Error al agregar producto al carrito:', errorMessage);
+  //     this.showModal(`Error al agregar producto al carrito: ${errorMessage}`);
+  //   }
+  // }
+
   async addToCart(product: any) {
     if (!this.authService.isLoggedIn()) {
       this.showModal('Debe iniciar sesión para agregar productos al carrito.');
       return;
     }
+
+    this.saveProductToLocalStorage(product);
 
     try {
       const cardToken = await this.generateCardToken();
@@ -135,18 +196,48 @@ export class InicioComponent implements OnInit {
       };
 
       const authToken = localStorage.getItem('token');
-      const headers = authToken ? new HttpHeaders({ Authorization: `${authToken}` }) : new HttpHeaders();
 
-      await this.http.post(this.cartApiUrl, payload, { headers }).toPromise();
-      this.showModal('Producto agregado al carrito.');
+      const headers = authToken
+        ? new HttpHeaders({ Authorization: `${authToken}` })
+        : new HttpHeaders();
+
+      this.http.post(this.cartApiUrl, payload, { headers }).subscribe({
+        next: (response) => {
+          console.log('Producto agregado al carrito:', response);
+          this.showModal('Producto agregado al carrito.');
+        },
+        error: (err) => {
+          this.showModal(
+            `Error al agregar producto al carrito: ${err.message}`
+          );
+        },
+      });
     } catch (error) {
-      let errorMessage = 'Error desconocido';
-      if (error instanceof Error) {
-        errorMessage = error.message;
-      }
-      // console.error('Error al agregar producto al carrito:', errorMessage);
-      this.showModal(`Error al agregar producto al carrito: ${errorMessage}`);
+      console.error('Error al generar el token de tarjeta:', error);
+      this.showModal('Error al generar el token de tarjeta.');
     }
+  }
+
+  saveProductToLocalStorage(product: any) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const existingProductIndex = cart.findIndex(
+      (item: any) => item.id === product.id
+    );
+
+    if (existingProductIndex !== -1) {
+      cart[existingProductIndex].quantity += product.quantity;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.name,
+        quantity: product.quantity,
+        price: product.price,
+        image: product.image1,
+      });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   showModal(message: string): void {
