@@ -82,7 +82,6 @@ export class CartComponent implements OnInit {
   }
 
   loadCartItems(): void {
-    // Obtener los productos almacenados en el localStorage
     const cart = localStorage.getItem('cart');
     if (cart) {
       this.cartItems = JSON.parse(cart);
@@ -96,14 +95,14 @@ export class CartComponent implements OnInit {
     const item = this.cartItems.find(i => i.id === productId);
     if (item) {
       item.quantity = Math.max(1, item.quantity + change);
-      this.saveCartToLocalStorage(); // Actualizar el localStorage
+      this.saveCartToLocalStorage();
       this.calculateTotal();
     }
   }
 
   removeItem(productId: number): void {
     this.cartItems = this.cartItems.filter(item => item.id !== productId);
-    this.saveCartToLocalStorage(); // Actualizar el localStorage
+    this.saveCartToLocalStorage(); 
     this.calculateTotal();
   }
 
