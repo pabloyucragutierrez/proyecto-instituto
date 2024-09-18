@@ -1,41 +1,4 @@
-<!-- <app-header></app-header>
-<section class="section section__cart">
-  <div class="cart-container">
-    <h2 class="cart-title">Carrito de compras</h2>
-    <div class="cart-item-list">
-      <div *ngFor="let item of cartItems" class="cart-item">
-        <img [src]="item.image1" alt="{{ item.title }}" class="cart-item-image" />
-        <div class="cart-item-details">
-          <h3 class="cart-item-title">{{ item.title }}</h3>
-          <p class="cart-item-description">
-            Descripción: {{ item.description }}
-          </p>
-          <div class="cart-item-meta">
-            <p class="cart-item-price">$ {{ item.unit_price.toFixed(2) }}</p>
-            <button class="cart-item-remove" (click)="removeItem(item.id)">
-              <i class="bx bxs-trash-alt"></i>
-            </button>
-            <p>Cantidad: {{item.quantity}}</p>
-            <div class="quantity-selector">
-              <button class="quantity-btn" (click)="updateQuantity(item.id, -1)">-</button>
-              <input
-                type="text"
-                [value]="item.quantity"
-                readonly
-              />
-              <button class="quantity-btn" (click)="updateQuantity(item.id, 1)">+</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="cart-summary">
-      <p class="summary-total">Total: $ {{ totalAmount.toFixed(2) }}</p>
-      <a class="checkout-button" routerLink="/datos-del-usuario">Continuar</a>
-    </div>
-  </div>
-</section>
-<app-footer></app-footer> -->
+
 
 
 <app-header></app-header>
