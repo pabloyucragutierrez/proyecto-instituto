@@ -50,9 +50,9 @@ export class PagarComponent implements OnInit {
           unit_price: product.price,
         })),
         back_urls: {
-          success: 'http://localhost:4200/compra-realizada?status=approved',
-          failure: 'http://localhost:4200/error-en-la-compra?status=failed',
-          pending: 'http://localhost:4200/?status=pending',
+          success: 'https://proyecto-del-instituto.netlify.app/compra-realizada?status=approved',
+          failure: 'https://proyecto-del-instituto.netlify.app/error-en-la-compra?status=failed',
+          pending: 'https://proyecto-del-instituto.netlify.app/?status=pending',
         },
         auto_return: 'approved',
         payer_email: 'pabloyucragutierrez@gmail.com',
