@@ -20,6 +20,7 @@ export class PagarComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    // aquí se pone el token real
     this.mp = new MercadoPago('TEST-34422d86-4f9c-4426-8b6d-60ff374b6909', {
       locale: 'es-PE',
     });
@@ -39,6 +40,7 @@ export class PagarComponent implements OnInit {
   }
 
   payWithMercadoPago(): void {
+    // aquí se pone el token real
     const accessToken = 'TEST-6239032100822731-090817-0c82c6f39ab7dd100c12208f23b3b014-1983574764';
 
     this.http.post<any>(
